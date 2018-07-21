@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -12,7 +12,114 @@
     <title>Hello, world!</title>
   </head>
   <body>
-    <h1>Hello, world!</h1>
+    <header>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-between">
+          <a href="/" class="navbar-brand d-flex align-items-center">
+            <strong>Super Vue Combat</strong>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main role="main" id="myapp">
+      <div class="container">
+        <div class="row my-2">
+          <div class="col-6">
+            <h3>Наруто</h3>
+            <div class="progress">
+              <div
+                class="progress-bar bg-warning progress-bar-striped progress-bar-animated"
+                role="progressbar"
+                :style="{ width: playerHealth + '%'}"
+                :aria-valuenow="playerHealth"
+                ></div>
+            </div>
+            <div id="heroImg">
+              <img :src="'/images/' + playerImg" class="img-fluid" alt="Hero">
+            </div>
+          </div>
+          <div class="col-6">
+            <h3>Дракон</h3>
+            <div class="progress">
+                <div
+                class="progress-bar bg-danger progress-bar-striped progress-bar-animated"
+                role="progressbar"
+                :style="{ width: dragonHealth + '%'}"
+                :aria-valuenow="dragonHealth"
+                ></div>
+            </div>
+            <div id="dragonImg">
+              <img :src="'/images/' + dragonImg" class="img-fluid" alt="Dragon">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container" v-if="!gameIsStarted">
+        <div class="row justify-content-md-center my-2">
+          <button type="button" class="btn btn-lg btn-success" @click="startGame">Начать игру</button>
+        </div>
+      </div>
+      <div class="container" v-else>
+        <div class="row justify-content-md-center my-2">
+          <button type="button" class="btn btn-lg btn-danger" @click="attack">
+            Атаковать
+          </button>
+          <button
+            type="button"
+            class="btn btn-lg btn-success"
+            @click="heal"
+            :class="{'disabled': !canHeal }"
+            >
+            Полечиться
+          </button>
+          <button
+            type="button"
+            class="btn btn-lg btn-info"
+            @click="rasengan"
+            :class="{'disabled': !canSuper }"
+            >
+            Супер приём
+          </button>
+          <button type="button" class="btn btn-lg btn-secondary" @click="surrender">
+            Сдаться
+          </button>
+        </div>
+      </div>
+      <p class="lead text-center">{{ result }}</p>
+      <section class="jumbotron text-center">
+        <div class="container">
+          <div class="row justify-content-md-center">
+            <div class="col-xs-12 col-sm-6">
+              <div class="log">
+                <div
+                  class="alert alert-success"
+                  role="alert"
+                  v-for="turn in turns"
+                  :class="'alert-' + turn.class"
+                  v-html="turn.message"
+                  >
+                </div>
+              </div>
+              <div class="startgame">
+                <h1 class="jumbotron-heading">О приложении</h1>
+                <p class="lead text-muted">Это прилжение было сделано только с одной целью - продемонстрировать базовые возможность Vue JS. Это сильный JavaScript framework, с помощью которого можно собирать такие приложения на коленках. Автор этого приложения <a href="https://www.linkedin.com/in/usesa/" target="_blank" title="Mikita Melnikau">Mikita Melnikau</a>.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="text-muted">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Back to top</a>
+        </p>
+        <p>Изображения взяты вот <a href="https://www.deviantart.com/mfg637" target="_blank">тут</a> и <a href="https://www.deviantart.com/elninja75" target="_blank"></a>тут</a></p>
+        <p>Для связи со мной можете писать мне <a href="https://t.me/PinkyaRabbit" target="_blank">в телеграм</a>.</p>
+      </div>
+    </footer>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
